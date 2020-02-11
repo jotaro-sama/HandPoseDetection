@@ -27,7 +27,7 @@ with open(args.file) as file:
         y0 = coordinates_1[1]
         # image[x0][y0] = 1
 
-        varx, vary = 50, 50
+        varx, vary = 1, 1
 
         for i, row in enumerate(image):
             for j, pixel in enumerate(row):
@@ -38,6 +38,6 @@ with open(args.file) as file:
         greyscale = Image.fromarray(image * 255).convert("L")
         #greyscale.show()
         print(heatmap_num)
-        heatmap_filename = "heatmaps/" + args.file.split("/")[1].split(".")[0] + "_" + str(heatmap_num+1).zfill(2) + ".png"
+        heatmap_filename = "heatmaps/" + args.file.split("/")[1].split(".")[0] + "_" + str(heatmap_num+1) + ".png"
         print(heatmap_filename)
         greyscale = greyscale.save(heatmap_filename)
