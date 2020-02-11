@@ -21,5 +21,6 @@ with open("test_data/0001.json") as file:
         for j, pixel in enumerate(row):
             image[i][j] = math.exp((- (((i-x0)**2/varx) + ((j-y0)**2/vary))))
 
-    greyscale = Image.fromarray(image * 255)
+    greyscale = Image.fromarray(image * 255).convert("L")
     greyscale.show()
+    greyscale = greyscale.save("0001-heatmap.png")
