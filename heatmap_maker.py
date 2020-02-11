@@ -38,6 +38,6 @@ with open(args.file) as file:
         greyscale = Image.fromarray(image * 255).convert("L")
         #greyscale.show()
         print(heatmap_num)
-        heatmap_filename = "heatmaps/" + args.file.split("/")[1].split(".")[0] + "_" + str(heatmap_num).zfill(4) + ".png"
+        heatmap_filename = "heatmaps/" + args.file.split("/")[1].split(".")[0] + "_" + str(heatmap_num+1).zfill(2) + ".png"
         print(heatmap_filename)
         greyscale = greyscale.save(heatmap_filename)
