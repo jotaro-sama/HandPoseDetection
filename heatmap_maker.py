@@ -27,15 +27,15 @@ synth_folder = args.dir+'/synth'+'{}'
 #synth_json_folder = args.dir+'/synth'+'{}'+'json'
 for idx in range(1, 5): #range should go to 1 to 4 included, since synth# folders are 4
     folder = synth_folder.format(idx)
-    print(folder)
+    #print(folder)
     for file in os.listdir(folder):
         filename = os.fsdecode(file)
 
         if filename.endswith(".jpg"):
-            print(filename)
+            #print(filename)
             with Image.open(folder+"/"+file) as img:
                 old_size = img.size
-                print(old_size)
+                #print(old_size)
                 
                 if old_size != NET_IMAGE_SIZE:
                     img = img.resize(size=NET_IMAGE_SIZE, resample=PIL.Image.BICUBIC)
@@ -46,7 +46,7 @@ for idx in range(1, 5): #range should go to 1 to 4 included, since synth# folder
                     heatmap_data_json = json.load(json_file)
                     for heatmap_num in range(21):
                         coordinates = heatmap_data_json["hand_pts"][heatmap_num]
-                        print(coordinates)
+                        #print(coordinates)
 
                         image = np.zeros((NET_IMAGE_SIZE[0], NET_IMAGE_SIZE[1]))
                         visited = np.zeros((NET_IMAGE_SIZE[0], NET_IMAGE_SIZE[1]))
@@ -56,7 +56,7 @@ for idx in range(1, 5): #range should go to 1 to 4 included, since synth# folder
                             x0 = coordinates[0]
                             y0 = coordinates[1]
                     
-                            varx, vary = 3, 3
+                            varx, vary = 5, 5
 
                             #since we resized the input image, we need to scale coordinates
                             ratioX = NET_IMAGE_SIZE[0]/old_size[0]
@@ -68,8 +68,8 @@ for idx in range(1, 5): #range should go to 1 to 4 included, since synth# folder
                     
                         greyscale = Image.fromarray(image * 255).convert("L")
                         #greyscale.show()
-                        print(heatmap_num)
+                        #print(heatmap_num)
                         heatmap_filename = "heatmaps/" + filename.split(".")[0] + "_" + str(heatmap_num+1) + ".png"
-                        print(heatmap_filename)
+                        #print(heatmap_filename)
                         greyscale = greyscale.save(heatmap_filename)
 
