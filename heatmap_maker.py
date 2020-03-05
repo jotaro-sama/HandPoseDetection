@@ -40,7 +40,7 @@ for file in list_dir:
             #print(old_size)
                 
             if old_size != NET_IMAGE_SIZE:
-                img = img.resize(size=NET_IMAGE_SIZE, resample=PIL.Image.BILINEAR)
+                img = img.resize(size=NET_IMAGE_SIZE, resample=PIL.Image.BICUBIC)
                 
             img = img.save(resized_images_folder_name+'/'+ str(count)+'.jpg')
 
