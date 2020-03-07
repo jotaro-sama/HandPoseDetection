@@ -42,11 +42,18 @@ for file in list_dir:
             if old_size != NET_IMAGE_SIZE:
                 img = img.resize(size=NET_IMAGE_SIZE, resample=PIL.Image.BICUBIC)
                 
-            img = img.save(resized_images_folder_name+'/'+ str(count)+'.jpg')
+            #img = img.save(resized_images_folder_name+'/'+ str(count)+'.jpg')
+            img.save(resized_images_folder_name+'/'+ "{:04d}".format(count)+'.jpg')
 
             with open(jsons_folder+"/"+filename.split('.')[0]+'.json') as json_file:
                 heatmap_data_json = json.load(json_file)
 
+                # If the hand is a left hand, flip the image. Also remember to flip the coordinates as well
+                isLeft = heatmap_data_json["is_left"]==1
+                if isLeft:
+                    img = img.transpose(Image.FLIP_LEFT_RIGHT)
+                    img.save(resized_images_folder_name+'/'+ "{:04d}".format(count)+'.jpg')
+                    
                 for heatmap_num in range(21):
                     coordinates = heatmap_data_json["hand_pts"][heatmap_num]
                     #print(coordinates)
@@ -58,20 +65,27 @@ for file in list_dir:
                     if z0 != 0:
                         x0 = coordinates[0]
                         y0 = coordinates[1]
-                    
+
                         var = float(args.variance)
 
                         #since we resized the input image, we need to scale coordinates
                         ratioX = NET_IMAGE_SIZE[0]/old_size[0]
                         ratioY = NET_IMAGE_SIZE[1]/old_size[1]
 
+                        new_X = x0*ratioX
+                        new_Y = y0*ratioY
+
+                        # Flip the x coordinate since we flipped the image horizontally
+                        if isLeft:
+                            new_X = NET_IMAGE_SIZE[0] - new_X
+
                         for i, row in enumerate(image):
                             for j, pixel in enumerate(row):
-                                image[i][j] = math.exp((- (((i-(x0*ratioX))**2/var) + ((j-(y0*ratioY))**2/var))))
+                                image[i][j] = math.exp((- (((i-(new_X))**2/var) + ((j-(new_Y))**2/var))))
                     
                     greyscale = Image.fromarray(image * 255).convert("L")
                     #print(heatmap_num)
-                    heatmap_filename = "heatmaps/" + str(count) + "_" + str(heatmap_num+1) + ".png"
+                    heatmap_filename = "heatmaps/" + "{:04d}".format(count) + "_" + str(heatmap_num+1) + ".png"
                     #print(heatmap_filename)
                     greyscale = greyscale.save(heatmap_filename)
                         

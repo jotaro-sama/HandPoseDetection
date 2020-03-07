@@ -22,5 +22,5 @@ for i in range(1,22):
 greyscale = Image.fromarray(merge * 255).convert("L")
 greyscale.show()		
 
-    
+#greyscale.save("merged_heatmap.png")
 
