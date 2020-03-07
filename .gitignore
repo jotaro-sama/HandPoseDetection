@@ -139,3 +139,8 @@ dmypy.json
 **/lib64
 **/share
 **/include
+
+
+# Generated directories and files
+heatmaps/
+resized/
