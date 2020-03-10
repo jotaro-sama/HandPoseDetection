@@ -13,7 +13,7 @@ size=328
 merge=np.zeros((328,328)) 
 
 for i in range(1,22):    
-    img=Image.open("heatmaps/0001_"+str(i)+".png")
+    img=Image.open("heatmaps/1_"+str(i)+".png")
     mat=img.load()   
     for r in range(0,size):
         for c in range(0,size):
@@ -22,5 +22,5 @@ for i in range(1,22):
 greyscale = Image.fromarray(merge * 255).convert("L")
 greyscale.show()		
 
-#greyscale.save("merged_heatmap.png")
+greyscale.save("merged_heatmap.png")
 

@@ -43,7 +43,7 @@ for file in list_dir:
                 img = img.resize(size=NET_IMAGE_SIZE, resample=PIL.Image.BICUBIC)
                 
             #img = img.save(resized_images_folder_name+'/'+ str(count)+'.jpg')
-            img.save(resized_images_folder_name+'/'+ "{:04d}".format(count)+'.jpg')
+            img.save(resized_images_folder_name+'/'+ str(count)+'.jpg')
 
             with open(jsons_folder+"/"+filename.split('.')[0]+'.json') as json_file:
                 heatmap_data_json = json.load(json_file)
@@ -52,7 +52,7 @@ for file in list_dir:
                 isLeft = heatmap_data_json["is_left"]==1
                 if isLeft:
                     img = img.transpose(Image.FLIP_LEFT_RIGHT)
-                    img.save(resized_images_folder_name+'/'+ "{:04d}".format(count)+'.jpg')
+                    img.save(resized_images_folder_name+'/'+ str(count)+'.jpg')
                     
                 for heatmap_num in range(21):
                     coordinates = heatmap_data_json["hand_pts"][heatmap_num]
@@ -85,9 +85,9 @@ for file in list_dir:
                     
                     greyscale = Image.fromarray(image * 255).convert("L")
                     #print(heatmap_num)
-                    heatmap_filename = "heatmaps/" + "{:04d}".format(count) + "_" + str(heatmap_num+1) + ".png"
+                    heatmap_filename = "heatmaps/" + str(count) + "_" + str(heatmap_num+1) + ".png"
                     #print(heatmap_filename)
                     greyscale = greyscale.save(heatmap_filename)
-                        
+                    
                 print(count)
                 count += 1
