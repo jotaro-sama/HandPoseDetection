@@ -36,7 +36,7 @@ NET_IMAGE_SIZE = (int(args.sizeX), int(args.sizeY))
 
 hands_folder = args.dir+'/hands'
 #jsons_folder = args.dir+'/jsons'
-count = args.resume
+count = int(args.resume)
 
 list_dir = sorted(os.listdir(hands_folder))
 
