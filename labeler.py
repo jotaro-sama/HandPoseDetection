@@ -87,5 +87,7 @@ for file in list_dir:
                   heatmap_filename = "heatmaps/" + str(count) + "_" + str(it) + ".png"
                   #print(heatmap_filename)
                   greyscale = greyscale.save(heatmap_filename)
-              plt.pause(0.001)  
+              plt.pause(0.001)
+        plt.cla()
+        plt.clf()
 
