@@ -6,7 +6,7 @@ from PIL import Image
 import argparse
 import os
 
-parser = argparse.ArgumentParser(description="Resizes dataset and generates heatmaps")
+parser = argparse.ArgumentParser(description="renames images and generated heatmaps")
 parser.add_argument("dir", help="images to be renamed")
 parser.add_argument("start", help="start from")
 args = parser.parse_args()
