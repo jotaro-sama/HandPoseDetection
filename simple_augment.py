@@ -39,18 +39,15 @@ for file in list_dir:
     num = filename.split('.')[0]
     rand = np.random.rand()
     angle = 0
-    print(rand)
+
     if (rand <= 0.33): #rotate right once
         angle -90
     
-    elif (rand > 0.25) and (rand <= 0.50): # rotate left once
+    elif (rand > 0.33) and (rand <= 0.66): # rotate left once
         angle = 90
     
-    elif (rand > 0.50) and (rand <= 0.75): # rotate right twice
+    elif rand > 0.66: # rotate right twice
         angle = -180
-    
-    elif (rand > 0.75): # rotate left twice
-        angle = 180
 
 
     with Image.open(hands_folder+"/"+file) as img:
